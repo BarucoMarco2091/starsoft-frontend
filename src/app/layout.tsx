@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 import "./styles/globals.scss";
 
 const poppins = Poppins({
-  variable: "--font-poppins",
+  
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${poppins.variable}`} suppressHydrationWarning>
+    <html lang="en" className={poppins.className} suppressHydrationWarning>
       <body>
         <Header/>
         {children}
