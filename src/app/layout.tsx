@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Header } from "@/components/header";
+import QueryProvider from "@/components/QueryProvider";
 
 import "./styles/globals.scss";
 
 const poppins = Poppins({
-  
+
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
@@ -19,8 +20,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={poppins.className} suppressHydrationWarning>
       <body>
-        <Header/>
-        {children}
+        <>
+        <QueryProvider>
+           <Header />
+          {children}
+        </QueryProvider>
+
+        </>
+
       </body>
     </html>
   );
