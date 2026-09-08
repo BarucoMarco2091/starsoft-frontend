@@ -20,7 +20,7 @@ export function Header() {
                 </Link>
             </div>
             <div>
-                <Link href="/">
+                <Link href="/cart">
                     <Handbag size={24} color="#FF8310" />
                 </Link>
                 <span className={styles.counter}>0</span>
