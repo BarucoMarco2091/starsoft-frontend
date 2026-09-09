@@ -1,11 +1,12 @@
 "use client";
+import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { 
-  addItemCart, 
+import {
+  addItemCart,
   removeItemCart,
-  deleteItemCart, 
-  selectCartList, 
-  selectCartTotalFormated 
+  deleteItemCart,
+  selectCartList,
+  selectCartTotalFormated
 } from "@/store/cartSlice";
 import { Container } from "@/components/container";
 import styles from "./styles.module.scss";
@@ -39,7 +40,11 @@ export default function Cart() {
           ) : (
             // 3. Faz o loop renderizando os produtos reais do Redux
             cartItems.map((item) => (
-              <div key={item.id} className={styles.cartItem}>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                whileHover={{ borderColor: "rgba(255, 131, 16, 0.5)" }}
+                key={item.id} className={styles.cartItem}>
                 {/* Imagem do item */}
                 <div className={styles.imageContainer}>
                   <Image src={productImg} width={70} height={70} alt={item.name} />
@@ -69,16 +74,18 @@ export default function Cart() {
                     </div>
 
                     {/* Botão de Lixeira: remove o item independente da quantidade */}
-                    <button 
+                    <motion.button
+                      whileHover={{ scale: 1.1, backgroundColor: "#FF8310", color: "#fff" }}
+                      whileTap={{ scale: 0.9 }}
                       className={styles.deleteButton}
                       onClick={() => dispatch(deleteItemCart(item))}
                       aria-label="Remover item"
                     >
                       🗑️
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))
           )}
         </div>
@@ -94,9 +101,12 @@ export default function Cart() {
             </div>
           </div>
 
-          <button className={styles.checkoutButton}>
+          <motion.button
+            whileHover={{ scale: 1.01, filter: "brightness(1.1)" }}
+            whileTap={{ scale: 0.99 }}
+            className={styles.checkoutButton}>
             FINALIZAR COMPRA
-          </button>
+          </motion.button>
         </div>
       </Container>
     </>

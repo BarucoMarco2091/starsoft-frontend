@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container } from "@/components/container";
 import styles from "./styles/page.module.scss";
@@ -48,13 +49,24 @@ export default function Home() {
   const allProducts = data?.pages.flatMap((page) => page.products) || []
 
   return (
-    <main>
+    <motion.main
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className={styles.border}></div>
 
       <Container>
         <section className={styles.grid}>
           {allProducts.map((product) => (
-            <div key={product.id} className={styles.card}>
+            <motion.div
+            whileHover={{ 
+                y: -6, 
+                boxShadow: "0px 12px 30px rgba(0, 0, 0, 0.4)",
+                borderColor: "#FF8310" 
+              }}
+              transition={{ duration: 0.2, ease: "easeInOut" }} 
+            key={product.id} className={styles.card}>
               <Image
                 src={productImg}
                 quality={100}
@@ -75,16 +87,21 @@ export default function Home() {
                 {product.price} ETH
               </span>
 
-              <button className={styles.cardButton} onClick={() => dispatch(addItemCart(product))}>
+              <motion.button
+              whileHover={{ backgroundColor: "#e66e00" }} // Escurece o laranja levemente no hover
+                whileTap={{ scale: 0.95 }} 
+              className={styles.cardButton} onClick={() => dispatch(addItemCart(product))}>
                 Comprar
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           ))}
         </section>
 
         {/* 5. Botão de paginação monitorando os estados do hook */}
         <div className={styles.loadBtn}>
-          <button 
+          <motion.button
+            whileHover={hasNextPage ? { scale: 1.03 } : {}}
+            whileTap={hasNextPage ? { scale: 0.98 } : {}} 
             onClick={() => fetchNextPage()} 
             disabled={!hasNextPage || isFetchingNextPage}
           >
@@ -93,9 +110,9 @@ export default function Home() {
               : hasNextPage 
                 ? "Carregando mais" 
                 : "Todos os produtos carregados"}
-          </button>
+          </motion.button>
         </div>
       </Container>
-    </main>
+    </motion.main>
   );
 }
