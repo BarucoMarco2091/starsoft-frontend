@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { Header } from "@/components/header";
 import QueryProvider from "@/components/QueryProvider";
+import ReduxProvider from "@/components/ReduxProvider";
 
 import "./styles/globals.scss";
 
@@ -21,10 +22,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={poppins.className} suppressHydrationWarning>
       <body>
         <>
-        <QueryProvider>
-           <Header />
-          {children}
-        </QueryProvider>
+          <QueryProvider>
+            <ReduxProvider>
+              <Header />
+              {children}
+            </ReduxProvider>
+
+          </QueryProvider>
 
         </>
 

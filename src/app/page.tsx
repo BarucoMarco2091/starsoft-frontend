@@ -5,6 +5,8 @@ import styles from "./styles/page.module.scss";
 import Image from "next/image";
 import productImg from "../../public/img-1.svg";
 import { ProductsResponse } from "@/utils/product.type";
+import { useDispatch } from "react-redux"; 
+import { addItemCart } from "@/store/cartSlice";
 
 const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
   const ROWS_PER_PAGE = 4;
@@ -24,6 +26,7 @@ const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
 }
 
 export default function Home() {
+  const dispatch = useDispatch()
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["products", "infinite"],
@@ -72,7 +75,7 @@ export default function Home() {
                 {product.price} ETH
               </span>
 
-              <button className={styles.cardButton}>
+              <button className={styles.cardButton} onClick={() => dispatch(addItemCart(product))}>
                 Comprar
               </button>
             </div>
