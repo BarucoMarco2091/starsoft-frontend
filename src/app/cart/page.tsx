@@ -6,7 +6,7 @@ import {
   removeItemCart,
   deleteItemCart,
   selectCartList,
-  selectCartTotalFormated
+  selectCartTotalFormated,
 } from "@/store/cartSlice";
 import { Container } from "@/components/container";
 import styles from "./styles.module.scss";
@@ -44,10 +44,17 @@ export default function Cart() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ borderColor: "rgba(255, 131, 16, 0.5)" }}
-                key={item.id} className={styles.cartItem}>
+                key={item.id}
+                className={styles.cartItem}
+              >
                 {/* Imagem do item */}
                 <div className={styles.imageContainer}>
-                  <Image src={productImg} width={70} height={70} alt={item.name} />
+                  <Image
+                    src={productImg}
+                    width={70}
+                    height={70}
+                    alt={item.name}
+                  />
                 </div>
 
                 {/* Detalhes do Produto */}
@@ -67,15 +74,23 @@ export default function Cart() {
                   <div className={styles.actionsRow}>
                     <div className={styles.quantityControls}>
                       {/* Botão de menos: dispara o removeItemCart passando o objeto */}
-                      <button onClick={() => dispatch(removeItemCart(item))}>-</button>
+                      <button onClick={() => dispatch(removeItemCart(item))}>
+                        -
+                      </button>
                       <span>{item.amount}</span>
                       {/* Botão de mais: dispara o addItemCart reaproveitando a lógica de somar */}
-                      <button onClick={() => dispatch(addItemCart(item))}>+</button>
+                      <button onClick={() => dispatch(addItemCart(item))}>
+                        +
+                      </button>
                     </div>
 
                     {/* Botão de Lixeira: remove o item independente da quantidade */}
                     <motion.button
-                      whileHover={{ scale: 1.1, backgroundColor: "#FF8310", color: "#fff" }}
+                      whileHover={{
+                        scale: 1.1,
+                        backgroundColor: "#FF8310",
+                        color: "#fff",
+                      }}
                       whileTap={{ scale: 0.9 }}
                       className={styles.deleteButton}
                       onClick={() => dispatch(deleteItemCart(item))}
@@ -104,7 +119,8 @@ export default function Cart() {
           <motion.button
             whileHover={{ scale: 1.01, filter: "brightness(1.1)" }}
             whileTap={{ scale: 0.99 }}
-            className={styles.checkoutButton}>
+            className={styles.checkoutButton}
+          >
             FINALIZAR COMPRA
           </motion.button>
         </div>

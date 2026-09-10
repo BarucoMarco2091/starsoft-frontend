@@ -32,7 +32,8 @@ export const cartSlice = createSlice({
 
       if (indexItem !== -1) {
         state.cart[indexItem].amount += 1;
-        state.cart[indexItem].total = state.cart[indexItem].amount * state.cart[indexItem].price;
+        state.cart[indexItem].total =
+          state.cart[indexItem].amount * state.cart[indexItem].price;
       } else {
         state.cart.push({
           ...newItem,
@@ -48,16 +49,17 @@ export const cartSlice = createSlice({
       if (indexItem !== -1) {
         if (state.cart[indexItem].amount > 1) {
           state.cart[indexItem].amount -= 1;
-          state.cart[indexItem].total = state.cart[indexItem].total - state.cart[indexItem].price;
+          state.cart[indexItem].total =
+            state.cart[indexItem].total - state.cart[indexItem].price;
         } else {
           state.cart = state.cart.filter((item) => item.id !== product.id);
         }
       }
     },
     deleteItemCart: (state, action: PayloadAction<Product>) => {
-        const product = action.payload
-        state.cart = state.cart.filter((item) => item.id !== product.id)
-    }
+      const product = action.payload;
+      state.cart = state.cart.filter((item) => item.id !== product.id);
+    },
   },
 });
 
@@ -73,5 +75,6 @@ export const selectCartTotalFormated = (state: { cart: CartState }) => {
   return `${result} ETH`;
 };
 
-export const { addItemCart, removeItemCart, deleteItemCart } = cartSlice.actions;
+export const { addItemCart, removeItemCart, deleteItemCart } =
+  cartSlice.actions;
 export default cartSlice.reducer;

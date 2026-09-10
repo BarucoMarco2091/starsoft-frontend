@@ -1,13 +1,12 @@
-
 .header {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1280px;
-    margin: auto;
-    padding: 16px 8px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: auto;
+  padding: 16px 8px;
 
-    .counter {
-        color: #FFFFFF;
-        margin: 0 7px;
-    }
+  .counter {
+    color: #ffffff;
+    margin: 0 7px;
+  }
 }

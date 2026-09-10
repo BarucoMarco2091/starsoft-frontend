@@ -8,48 +8,57 @@ import productImg from "../../../public/img-1.svg";
 import { ProductsResponse } from "@/utils/product.type";
 import { useDispatch } from "react-redux";
 import { addItemCart } from "@/store/cartSlice";
-import Footer from "@/components/footer"
-import { useState } from "react";
+import Footer from "@/components/footer";
 
 const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
   const ROWS_PER_PAGE = 4;
   const queryParams = new URLSearchParams({
     page: String(pageParam),
     rows: String(ROWS_PER_PAGE),
-    sortBy: "id",      // OBRIGATÓRIO pela API MKS
-    orderBy: "DESC"
-  }).toString()
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products?${queryParams}`);
+    sortBy: "id", // OBRIGATÓRIO pela API MKS
+    orderBy: "DESC",
+  }).toString();
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/products?${queryParams}`,
+  );
 
   if (!res.ok) {
     throw new Error("Erro ao buscar produtos");
   }
 
   return res.json();
-}
+};
 
 export default function Home() {
-  const [itemAdicionado, setItemAdicionado] = useState<number | null>(null)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+  const {
+    data,
+    isLoading,
+    isError,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
     queryKey: ["products", "infinite"],
     queryFn: fetchProducts,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const totalProdutosCarregados = allPages.flatMap(page => page.products).length;
+      const totalProdutosCarregados = allPages.flatMap(
+        (page) => page.products,
+      ).length;
       if (totalProdutosCarregados < lastPage.count) {
-        return allPages.length + 1
+        return allPages.length + 1;
       }
-      return undefined
-    }
+      return undefined;
+    },
   });
 
   if (isLoading) return <p>Loading...</p>;
 
   if (isError) return <p>Error</p>;
 
-  const allProducts = data?.pages.flatMap((page) => page.products) || []
+  const allProducts = data?.pages.flatMap((page) => page.products) || [];
 
   return (
     <motion.main
@@ -66,10 +75,12 @@ export default function Home() {
               whileHover={{
                 y: -6,
                 boxShadow: "0px 12px 30px rgba(0, 0, 0, 0.4)",
-                borderColor: "#FF8310"
+                borderColor: "#FF8310",
               }}
               transition={{ duration: 0.2, ease: "easeInOut" }}
-              key={product.id} className={styles.card}>
+              key={product.id}
+              className={styles.card}
+            >
               <Image
                 src={productImg}
                 quality={100}
@@ -78,26 +89,18 @@ export default function Home() {
                 alt="imagem"
               />
 
-              <h2 className={styles.cardTitle}>
-                {product.name}
-              </h2>
+              <h2 className={styles.cardTitle}>{product.name}</h2>
 
-              <p className={styles.cardText}>
-                {product.description}
-              </p>
+              <p className={styles.cardText}>{product.description}</p>
 
-              <span className={styles.cardPrice}>
-                {product.price} ETH
-              </span>
+              <span className={styles.cardPrice}>{product.price} ETH</span>
 
               <motion.button
                 whileHover={{ backgroundColor: "#e66e00" }} // Escurece o laranja levemente no hover
                 whileTap={{ scale: 0.95 }}
-                className={`${styles.cardButton} ${itemAdicionado === product.id ? styles.added : ""
-                  }`} onClick={
-                    () => dispatch(addItemCart(product))
-                    
-                  }>
+                className={styles.cardButton}
+                onClick={() => dispatch(addItemCart(product))}
+              >
                 Comprar
               </motion.button>
             </motion.div>
@@ -122,6 +125,5 @@ export default function Home() {
       </Container>
       <Footer />
     </motion.main>
-
   );
 }
