@@ -2,12 +2,14 @@
 import { motion } from "framer-motion";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { Container } from "@/components/container";
-import styles from "./styles/page.module.scss";
+import styles from "../styles/page.module.scss";
 import Image from "next/image";
-import productImg from "../../public/img-1.svg";
+import productImg from "../../../public/img-1.svg";
 import { ProductsResponse } from "@/utils/product.type";
-import { useDispatch } from "react-redux"; 
+import { useDispatch } from "react-redux";
 import { addItemCart } from "@/store/cartSlice";
+import Footer from "@/components/footer"
+import { useState } from "react";
 
 const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
   const ROWS_PER_PAGE = 4;
@@ -27,6 +29,7 @@ const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
 }
 
 export default function Home() {
+  const [itemAdicionado, setItemAdicionado] = useState<number | null>(null)
   const dispatch = useDispatch()
 
   const { data, isLoading, isError, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
@@ -35,7 +38,7 @@ export default function Home() {
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const totalProdutosCarregados = allPages.flatMap(page => page.products).length;
-      if(totalProdutosCarregados < lastPage.count) {
+      if (totalProdutosCarregados < lastPage.count) {
         return allPages.length + 1
       }
       return undefined
@@ -60,13 +63,13 @@ export default function Home() {
         <section className={styles.grid}>
           {allProducts.map((product) => (
             <motion.div
-            whileHover={{ 
-                y: -6, 
+              whileHover={{
+                y: -6,
                 boxShadow: "0px 12px 30px rgba(0, 0, 0, 0.4)",
-                borderColor: "#FF8310" 
+                borderColor: "#FF8310"
               }}
-              transition={{ duration: 0.2, ease: "easeInOut" }} 
-            key={product.id} className={styles.card}>
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+              key={product.id} className={styles.card}>
               <Image
                 src={productImg}
                 quality={100}
@@ -88,9 +91,13 @@ export default function Home() {
               </span>
 
               <motion.button
-              whileHover={{ backgroundColor: "#e66e00" }} // Escurece o laranja levemente no hover
-                whileTap={{ scale: 0.95 }} 
-              className={styles.cardButton} onClick={() => dispatch(addItemCart(product))}>
+                whileHover={{ backgroundColor: "#e66e00" }} // Escurece o laranja levemente no hover
+                whileTap={{ scale: 0.95 }}
+                className={`${styles.cardButton} ${itemAdicionado === product.id ? styles.added : ""
+                  }`} onClick={
+                    () => dispatch(addItemCart(product))
+                    
+                  }>
                 Comprar
               </motion.button>
             </motion.div>
@@ -101,18 +108,20 @@ export default function Home() {
         <div className={styles.loadBtn}>
           <motion.button
             whileHover={hasNextPage ? { scale: 1.03 } : {}}
-            whileTap={hasNextPage ? { scale: 0.98 } : {}} 
-            onClick={() => fetchNextPage()} 
+            whileTap={hasNextPage ? { scale: 0.98 } : {}}
+            onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
           >
-            {isFetchingNextPage 
-              ? "Carregando..." 
-              : hasNextPage 
-                ? "Carregando mais" 
+            {isFetchingNextPage
+              ? "Carregando..."
+              : hasNextPage
+                ? "Carregando mais"
                 : "Todos os produtos carregados"}
           </motion.button>
         </div>
       </Container>
+      <Footer />
     </motion.main>
+
   );
 }

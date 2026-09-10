@@ -9,6 +9,7 @@
     grid-template-columns: 1fr;
     gap: 24px;
     margin-top: 40px;
+    padding: 2dvh;
 
     .card {
         background-color: #191a20;
@@ -73,6 +74,7 @@
 @media (min-width: 768px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
+        padding: 2dvh;
     }
 }
 
