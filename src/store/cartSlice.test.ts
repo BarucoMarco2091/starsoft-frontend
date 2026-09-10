@@ -11,7 +11,7 @@ describe("Cart Redux Slice", () => {
   };
 
   const mockNotebook = {
-    id: 2, // CORRIGIDO: Alterado de 1 para 2 para ser um produto diferente
+    id: 2,
     name: "MacBook Air",
     brand: "Apple",
     description: "Processador potente para todas as suas tarefas.",
@@ -28,11 +28,10 @@ describe("Cart Redux Slice", () => {
     let estado = cartReducer(undefined, addItemCart(mockCelular));
     estado = cartReducer(estado, addItemCart(mockCelular));
 
-    // A quantidade de tipos de itens no array DEVE ser 1
     expect(estado.cart).toHaveLength(1);
-    // Mas a quantidade interna do produto deve ser 2
+
     expect(estado.cart[0].amount).toBe(2);
-    // CORRIGIDO: 5000 * 2 = 10000 ETH
+
     expect(estado.cart[0].total).toBe(10000);
   });
 
@@ -40,7 +39,6 @@ describe("Cart Redux Slice", () => {
     let estado = cartReducer(undefined, addItemCart(mockCelular));
     estado = cartReducer(estado, addItemCart(mockNotebook));
 
-    // Agora com IDs diferentes, o length vai dar 2 perfeitamente!
     expect(estado.cart).toHaveLength(2);
   });
 });

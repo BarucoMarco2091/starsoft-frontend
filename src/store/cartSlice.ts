@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-// 1. Interfaces batendo com o seu tipo de produto da Home
 interface Product {
   id: number;
   name: string;
@@ -60,13 +59,14 @@ export const cartSlice = createSlice({
       const product = action.payload;
       state.cart = state.cart.filter((item) => item.id !== product.id);
     },
+    clearCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 
-// Seletores para calcular os dados em tempo real
 export const selectCartList = (state: { cart: CartState }) => state.cart.cart;
 
-// Soma a quantidade acumulada de itens (ex: 2 itens A + 1 item B = 3 itens no counter)
 export const selectCartAmount = (state: { cart: CartState }) =>
   state.cart.cart.length;
 
@@ -75,6 +75,6 @@ export const selectCartTotalFormated = (state: { cart: CartState }) => {
   return `${result} ETH`;
 };
 
-export const { addItemCart, removeItemCart, deleteItemCart } =
+export const { addItemCart, removeItemCart, deleteItemCart, clearCart } =
   cartSlice.actions;
 export default cartSlice.reducer;

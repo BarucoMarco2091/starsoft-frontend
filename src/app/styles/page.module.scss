@@ -14,10 +14,19 @@
   .card {
     background-color: #191a20;
     padding: 16px;
-
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    .cardImage {
+      width: 100%;
+      max-width: 344px;
+      height: 258px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+    }
 
     .cardTitle {
       color: #fff;
@@ -52,7 +61,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
+  padding: 2dvh;
   margin: 40px 0;
 
   button {
@@ -60,7 +69,7 @@
     max-width: 403px;
     height: 60px;
 
-    background-color: #ff8310;
+    background-color: #393939;
     color: #fff;
 
     border: none;
@@ -76,10 +85,18 @@
     grid-template-columns: repeat(2, 1fr);
     padding: 2dvh;
   }
+
+  .loadBtn {
+    margin: 2dvh;
+  }
 }
 
 @media (min-width: 1024px) {
   .grid {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .loadBtn {
+    margin: 2dvh;
   }
 }

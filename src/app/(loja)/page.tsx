@@ -15,7 +15,7 @@ const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
   const queryParams = new URLSearchParams({
     page: String(pageParam),
     rows: String(ROWS_PER_PAGE),
-    sortBy: "id", // OBRIGATÓRIO pela API MKS
+    sortBy: "id",
     orderBy: "DESC",
   }).toString();
   const res = await fetch(
@@ -84,9 +84,10 @@ export default function Home() {
               <Image
                 src={productImg}
                 quality={100}
-                width={100}
-                height={100}
+                width={344}
+                height={258}
                 alt="imagem"
+                className={styles.cardImage}
               />
 
               <h2 className={styles.cardTitle}>{product.name}</h2>
@@ -96,7 +97,7 @@ export default function Home() {
               <span className={styles.cardPrice}>{product.price} ETH</span>
 
               <motion.button
-                whileHover={{ backgroundColor: "#e66e00" }} // Escurece o laranja levemente no hover
+                whileHover={{ backgroundColor: "#e66e00" }}
                 whileTap={{ scale: 0.95 }}
                 className={styles.cardButton}
                 onClick={() => dispatch(addItemCart(product))}
@@ -116,10 +117,10 @@ export default function Home() {
             disabled={!hasNextPage || isFetchingNextPage}
           >
             {isFetchingNextPage
-              ? "Carregando..."
+              ? "Carregar mais..."
               : hasNextPage
-                ? "Carregando mais"
-                : "Todos os produtos carregados"}
+                ? "Carregar mais"
+                : "Você já viu tudo"}
           </motion.button>
         </div>
       </Container>

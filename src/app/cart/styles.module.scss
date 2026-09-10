@@ -1,9 +1,8 @@
-// Paleta de cores extraída do seu print do Figma
-$bg-dark: #121212;
-$card-bg: #1e1e1e;
-$orange-primary: #ff7a00;
+$bg-dark: #232323;
+$card-bg: #191a20;
+$orange-primary: #ff8310;
 $text-white: #ffffff;
-$text-gray: #7a7a7a;
+$text-gray: #cccccc;
 
 .header {
   display: flex;
@@ -214,5 +213,15 @@ $text-gray: #7a7a7a;
 
   &:hover {
     background: #e66e00;
+  }
+}
+
+@media (max-width: 768px) {
+  .itemsList {
+    padding: 2dvh;
+  }
+
+  .checkoutButton {
+    margin: 2dvh 2dvh;
   }
 }
