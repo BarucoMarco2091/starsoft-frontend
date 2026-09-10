@@ -73,7 +73,7 @@ export default function Home() {
       <div className={styles.border}></div>
 
       <Container>
-        <section className={styles.grid}>
+        <section className={styles.grid} aria-label="Catálogo de Itens Raros">
           {allProducts.map((product) => (
             <motion.div
               whileHover={{
@@ -90,7 +90,8 @@ export default function Home() {
                 quality={100}
                 width={344}
                 height={258}
-                alt="imagem"
+                alt={`Representação visual do item ${product.name}`}
+                priority={product.id <= 4}
                 className={styles.cardImage}
               />
 
@@ -121,12 +122,13 @@ export default function Home() {
         </section>
 
         {/* 5. Botão de paginação monitorando os estados do hook */}
-        <div className={styles.loadBtn}>
+        <div className={styles.loadBtn} aria-live="polite">
           <motion.button
             whileHover={hasNextPage ? { scale: 1.03 } : {}}
             whileTap={hasNextPage ? { scale: 0.98 } : {}}
             onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
+            aria-label="Carregar mais produtos do mercado"
           >
             {isFetchingNextPage
               ? "Carregar mais..."
