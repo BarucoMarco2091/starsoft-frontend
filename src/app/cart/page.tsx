@@ -16,6 +16,7 @@ import styles from "./styles.module.scss";
 import Image from "next/image";
 import productImg from "../../../public/img-1.svg";
 import Link from "next/link";
+import ellipseImg from "../../../public/Ellipse 770.svg";
 
 export default function Cart() {
   const dispatch = useDispatch();
@@ -70,7 +71,13 @@ export default function Cart() {
                   </div>
 
                   <div className={styles.priceContainer}>
-                    <span className={styles.ethIcon}>♦</span>
+                    <Image
+                      src={ellipseImg}
+                      alt="ellipse"
+                      width={29}
+                      height={29}
+                      quality={100}
+                    />
                     <span className={styles.priceText}>{item.total} ETH</span>
                   </div>
 
@@ -110,9 +117,16 @@ export default function Cart() {
           <div className={styles.totalContainer}>
             <span className={styles.totalLabel}>TOTAL</span>
             <div className={styles.totalPrice}>
-              <span className={styles.ethIcon}>♦</span>
-
-              <span>{cartTotal}</span>
+              <div className={styles.total}>
+                <Image
+                  src={ellipseImg}
+                  alt="ellipse"
+                  width={29}
+                  height={29}
+                  quality={100}
+                />
+                <span className={styles.price}>{cartTotal}</span>
+              </div>
             </div>
           </div>
 

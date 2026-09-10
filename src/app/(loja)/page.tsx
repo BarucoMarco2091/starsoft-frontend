@@ -9,6 +9,8 @@ import { ProductsResponse } from "@/utils/product.type";
 import { useDispatch } from "react-redux";
 import { addItemCart } from "@/store/cartSlice";
 import Footer from "@/components/footer";
+import ellipseImg from "../../../public/Ellipse 770.svg";
+import { Loading } from "@/components/loading";
 
 const fetchProducts = async ({ pageParam = 1 }): Promise<ProductsResponse> => {
   const ROWS_PER_PAGE = 4;
@@ -54,7 +56,9 @@ export default function Home() {
     },
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) {
+    return <Loading />;
+  }
 
   if (isError) return <p>Error</p>;
 
@@ -93,8 +97,16 @@ export default function Home() {
               <h2 className={styles.cardTitle}>{product.name}</h2>
 
               <p className={styles.cardText}>{product.description}</p>
-
-              <span className={styles.cardPrice}>{product.price} ETH</span>
+              <div className={styles.total}>
+                <Image
+                  src={ellipseImg}
+                  alt="ellipse"
+                  width={29}
+                  height={29}
+                  quality={100}
+                />
+                <span className={styles.cardPrice}>{product.price} ETH</span>
+              </div>
 
               <motion.button
                 whileHover={{ backgroundColor: "#e66e00" }}
