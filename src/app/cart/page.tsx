@@ -83,12 +83,12 @@ export default function Cart() {
 
                   <div className={styles.actionsRow}>
                     <div className={styles.quantityControls}>
-                      <button onClick={() => dispatch(removeItemCart(item))}>
+                      <button onClick={() => dispatch(removeItemCart(item))} aria-label="Diminuir quantidade">
                         -
                       </button>
                       <span>{item.amount}</span>
 
-                      <button onClick={() => dispatch(addItemCart(item))}>
+                      <button onClick={() => dispatch(addItemCart(item))} aria-label="Aumentar quantidade">
                         +
                       </button>
                     </div>
@@ -136,6 +136,7 @@ export default function Cart() {
               whileTap={{ scale: 0.99 }}
               className={styles.checkoutButton}
               onClick={handleCheckout}
+              
             >
               {isFinished ? "COMPRA FINALIZADA" : "FINALIZAR COMPRA"}
             </motion.button>

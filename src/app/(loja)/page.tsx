@@ -60,7 +60,7 @@ export default function Home() {
     return <Loading />;
   }
 
-  if (isError) return <p>Error</p>;
+  if (isError) return <p>Não foi possível carregar os produtos.</p>;
 
   const allProducts = data?.pages.flatMap((page) => page.products) || [];
 
