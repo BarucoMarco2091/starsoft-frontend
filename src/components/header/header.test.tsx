@@ -8,13 +8,11 @@ import { Header } from ".";
 import "@testing-library/jest-dom";
 import { RootState } from "../../store/store";
 
-// Correção na tipagem da store mockada para aceitar o estado inicial simulado
 const renderComRedux = (
   componente: React.ReactElement,
   estadoInicial?: Partial<RootState>,
 ) => {
   const store = configureStore({
-    // Usando o reducer diretamente para bater com a estrutura do preloadedState
     reducer: combineReducers({
       cart: cartReducer,
     }),
@@ -25,7 +23,6 @@ const renderComRedux = (
 
 describe("Componente Header", () => {
   it("should render the number of unique items based on the length (2 cell phones + 1 laptop = 2).", () => {
-    // Simulando o estado exatamente com a assinatura correspondente do Redux
     const estadoSimulado = {
       cart: {
         cart: [
@@ -55,7 +52,6 @@ describe("Componente Header", () => {
 
     renderComRedux(<Header />, estadoSimulado);
 
-    // O contador no HTML deve exibir "2", ignorando o acúmulo de quantidades
     const elementoContador = screen.getByText("2");
     expect(elementoContador).toBeInTheDocument();
   });

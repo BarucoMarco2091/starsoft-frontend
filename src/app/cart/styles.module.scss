@@ -6,11 +6,11 @@ $text-gray: #cccccc;
 
 .header {
   display: flex;
-  justify-content: space-between; // Mudado de space-evenly para alinhar melhor nas extremidades
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   margin-bottom: 32px;
-  padding: 30px 16px; // Reduzido o padding lateral para telas menores
+  padding: 30px 16px;
 
   .backButton {
     background: #262626;
@@ -82,7 +82,7 @@ $text-gray: #cccccc;
     justify-content: center;
     width: 90px;
     height: 90px;
-    flex-shrink: 0; // Impede a imagem de amassar em tablets
+    flex-shrink: 0;
   }
 }
 

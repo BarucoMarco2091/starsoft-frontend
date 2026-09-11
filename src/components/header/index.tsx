@@ -26,7 +26,7 @@ export function Header() {
       <motion.div
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        key={cartAmount} // O 'key' força o Framer Motion a reexecutar a animação de pulso quando o valor muda
+        key={cartAmount}
         animate={{ scale: [1, 1.15, 1] }}
         transition={{ duration: 0.3 }}
       >

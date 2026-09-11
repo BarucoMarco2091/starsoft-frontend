@@ -121,7 +121,6 @@ export default function Home() {
           ))}
         </section>
 
-        {/* 5. Botão de paginação monitorando os estados do hook */}
         <div className={styles.loadBtn} aria-live="polite">
           <motion.button
             whileHover={hasNextPage ? { scale: 1.03 } : {}}
